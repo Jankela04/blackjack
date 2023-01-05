@@ -1,34 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useDebugValue, useEffect, useState } from "react";
+import { useDeckOfCards } from "./hooks/useDeckOfCards";
+import "./assets/styles.css";
+import * as type from "./utils/types";
+import Card from "./components/Card";
+import { Players } from "./hooks/useDeckOfCards";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const { getNewDeck, cards, startGame, values, drawCard, dealerPlayTurn } =
+        useDeckOfCards();
+    const [playing, setPlaying] = useState<boolean>(false);
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    getNewDeck();
+    return (
+        <>
+            <h1>Welcome To Blackjack</h1>
+            <div className="app">
+                {!playing ? (
+                    <button
+                        onClick={() => {
+                            setPlaying(true);
+                            startGame();
+                        }}
+                    >
+                        Start Game
+                    </button>
+                ) : (
+                    <div className="game">
+                        {!cards.dealerCards.length ? (
+                            <p>Loading</p>
+                        ) : (
+                            <>
+                                <span>Dealer</span>
+                                <span>Value:{values.dealer}</span>
+                                <div className="dealer-cards">
+                                    {cards.dealerCards.map((card) => (
+                                        <Card key={card.code} card={card} />
+                                    ))}
+                                </div>
+                                <div className="user-cards">
+                                    {cards.userCards.map((card) => (
+                                        <Card key={card.code} card={card} />
+                                    ))}
+                                </div>
+                                <span>Value: {values.user}</span>
+                                <div className="actions">
+                                    <button
+                                        onClick={() => {
+                                            drawCard(Players.User);
+                                        }}
+                                    >
+                                        Hit
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            dealerPlayTurn();
+                                        }}
+                                    >
+                                        Stand
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                )}
+            </div>
+        </>
+    );
 }
 
-export default App
+export default App;
