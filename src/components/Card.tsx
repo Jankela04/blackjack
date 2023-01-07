@@ -1,6 +1,5 @@
 import React from "react";
-import { Card as CardType } from "../../utils/types";
-import "./styles.css";
+import { Card as CardType } from "../utils/types";
 
 type CardProps = {
     card: CardType;
