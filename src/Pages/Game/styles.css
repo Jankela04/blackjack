@@ -1,0 +1,11 @@
+.game {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.message {
+    height: 2em;
+}
