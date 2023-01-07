@@ -13,6 +13,7 @@ const Home = (props: Props) => {
         <div className="home">
             <Title />
             <Button
+                active={true}
                 label={"Start Game"}
                 type={"big"}
                 onClick={() => {

@@ -1,4 +1,4 @@
-button {
+.active {
     padding: 1em 1.2em;
     font-size: 1.2rem;
     border: none;
@@ -8,6 +8,15 @@ button {
     border-radius: 0.5em;
 }
 
-button:hover {
+.active:hover {
     scale: 1.1;
+}
+
+.disabled {
+    pointer-events: none;
+    background-color: gray;
+    padding: 1em 1.2em;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.5em;
 }

@@ -37,7 +37,7 @@ export const useDeckOfCards = () => {
                 evaluate();
                 return;
             }
-            const timeoutID = setTimeout(() => drawCard(Players.Dealer), 2000);
+            const timeoutID = setTimeout(() => drawCard(Players.Dealer), 1000);
             return () => clearTimeout(timeoutID);
         }
     });
@@ -150,5 +150,6 @@ export const useDeckOfCards = () => {
         message,
         setMessage,
         gameOver,
+        playing,
     };
 };

@@ -4,12 +4,16 @@ type Props = {
     label: string;
     onClick: () => void;
     type: "small" | "big";
+    active: boolean;
 };
 
-const Button = ({ label, onClick, type }: Props) => {
+const Button = ({ label, onClick, type, active }: Props) => {
     return (
         <button
-            style={{ width: type === "small" ? "5em" : "8em" }}
+            className={active ? "active" : "disabled"}
+            style={{
+                width: type === "small" ? "5em" : "8em",
+            }}
             onClick={onClick}
         >
             {label}

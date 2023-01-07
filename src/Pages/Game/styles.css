@@ -9,4 +9,8 @@
 .message {
     height: 2em;
     font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
 }
