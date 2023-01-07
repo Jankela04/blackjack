@@ -1,8 +1,6 @@
 import Card from "../../../components/Card/Card";
-import { Players } from "../../../hooks/useDeckOfCards";
 import { Card as TCard } from "../../../utils/types";
 import "./styles.css";
-import UserActions from "./UserActions";
 
 type Props = {
     player: string;
@@ -19,10 +17,9 @@ const Player = ({ player, value, cards }: Props) => {
             </p>
             <div className="cards">
                 {cards.map((card) => (
-                    <Card card={card} />
+                    <Card key={card.code} card={card} />
                 ))}
             </div>
-            {player == Players.User && <UserActions />}
         </div>
     );
 };

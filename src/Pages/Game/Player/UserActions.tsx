@@ -1,10 +1,26 @@
 import Button from "../../../components/Button/Button";
+import { Players } from "../../../hooks/useDeckOfCards";
 
-type Props = {};
+type Props = {
+    drawCard: (player: Players) => Promise<void>;
+    setDealerPlayTurn: React.Dispatch<React.SetStateAction<boolean>>;
+    dealerPlayTurn: boolean;
+};
 
-const UserActions = (props: Props) => {
-    const handleHit = () => {};
-    const handleStand = () => {};
+const UserActions = ({
+    drawCard,
+    setDealerPlayTurn,
+    dealerPlayTurn,
+}: Props) => {
+    const handleHit = () => {
+        if (!dealerPlayTurn) drawCard(Players.User);
+    };
+    const handleStand = () => {
+        if (!dealerPlayTurn) {
+            drawCard(Players.Dealer);
+            setDealerPlayTurn(true);
+        }
+    };
 
     return (
         <div className="user-actions">

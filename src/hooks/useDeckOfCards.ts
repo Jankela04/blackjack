@@ -15,6 +15,7 @@ export const useDeckOfCards = () => {
     });
     const [dealerPlayTurn, setDealerPlayTurn] = useState(false);
     const [message, setMessage] = useState("");
+    const [playing, setPlaying] = useState(true);
 
     const userValue = useMemo(() => {
         return cards.userCards
@@ -29,6 +30,7 @@ export const useDeckOfCards = () => {
     }, [cards.dealerCards]);
 
     useEffect(() => {
+        // recursive function that draws cards to dealer
         if (dealerPlayTurn) {
             if (dealerValue >= 17) {
                 setDealerPlayTurn(false);
@@ -63,6 +65,7 @@ export const useDeckOfCards = () => {
     }
 
     const startGame = () => {
+        // setPlaying(true);
         useEffect(() => {
             axios
                 .get(
@@ -90,29 +93,31 @@ export const useDeckOfCards = () => {
 
     const drawCard = async (player: Players) => {
         //draws card to either user or dealer
-        const res = await axios.get(
-            `https://www.deckofcardsapi.com/api/deck/${deck}/draw/?count=1`
-        );
-        if (player === Players.Dealer) {
-            setCards((prev) => {
-                return {
-                    userCards: prev.userCards,
-                    dealerCards: [...prev.dealerCards, res.data.cards[0]],
-                };
-            });
-        } else {
-            setCards((prev) => {
-                return {
-                    userCards: [...prev.userCards, res.data.cards[0]],
-                    dealerCards: prev.dealerCards,
-                };
-            });
+        if (playing) {
+            const res = await axios.get(
+                `https://www.deckofcardsapi.com/api/deck/${deck}/draw/?count=1`
+            );
+            if (player === Players.Dealer) {
+                setCards((prev) => {
+                    return {
+                        userCards: prev.userCards,
+                        dealerCards: [...prev.dealerCards, res.data.cards[0]],
+                    };
+                });
+            } else {
+                setCards((prev) => {
+                    return {
+                        userCards: [...prev.userCards, res.data.cards[0]],
+                        dealerCards: prev.dealerCards,
+                    };
+                });
+            }
         }
     };
 
     const gameOver = (GameResult: Players | (true & {})) => {
         setDealerPlayTurn(false);
-        // setPlaying(false);
+        setPlaying(false);
         if (GameResult === true) {
             setMessage("It's a Draw!");
         } else {
@@ -121,6 +126,8 @@ export const useDeckOfCards = () => {
     };
 
     const evaluate = () => {
+        if (dealerValue >= 22) return gameOver(Players.User);
+
         if (userValue > dealerValue) {
             gameOver(Players.User);
         } else if (userValue < dealerValue) {

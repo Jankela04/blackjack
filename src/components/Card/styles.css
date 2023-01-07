@@ -1,4 +1,4 @@
 img {
-    width: 150px;
+    width: clamp(75px, 150px, 200px);
     margin-inline: 0.2em;
 }
