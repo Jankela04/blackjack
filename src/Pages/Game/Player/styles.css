@@ -6,14 +6,14 @@
 }
 
 p {
-    padding: 0.5em;
     display: flex;
     align-items: center;
+    font-size: 1.2em;
     gap: 0.5em;
 }
-span {
+p span {
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
 }
@@ -21,4 +21,16 @@ span {
 .user-actions {
     display: flex;
     gap: 2em;
+}
+
+.info {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info .chips {
+    font-weight: bold;
+    font-size: 1.5rem;
 }

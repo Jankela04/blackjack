@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import * as type from "../utils/types";
+import useChips from "../utils/chipsStore";
 
 export enum Players {
     User = "User",
@@ -8,6 +9,8 @@ export enum Players {
 }
 
 export const useDeckOfCards = () => {
+    const wonBet = useChips((state) => state.wonBet);
+    const draw = useChips((state) => state.draw);
     const [deck, setDeck] = useState<string>();
     const [cards, setCards] = useState<type.Game>({
         userCards: [],
@@ -120,8 +123,10 @@ export const useDeckOfCards = () => {
         setPlaying(false);
         if (GameResult === true) {
             setMessage("It's a Draw!");
+            draw();
         } else {
             setMessage(`${GameResult} Won!`);
+            if (GameResult === Players.User) wonBet();
         }
     };
 

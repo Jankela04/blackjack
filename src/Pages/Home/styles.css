@@ -4,3 +4,30 @@
     align-items: center;
     height: 100vh;
 }
+
+.chips {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.start-game {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    gap: 1em;
+}
+form {
+    display: flex;
+    gap: 0.5em;
+    flex-direction: column;
+}
+form input {
+    font-size: 1.5rem;
+}
+
+.chips span {
+    font-size: 1.5em;
+}
